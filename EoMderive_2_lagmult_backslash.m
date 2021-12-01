@@ -3,7 +3,7 @@ clc;close all;clear;
 syms thetD thetDdot thetDdotdot thetB thetBdot thetBdotdot thet1 thet1dot thet1dotdot...
     thet2 thet2dot thet2dotdot thet3 thet3dot thet3dotdot ...
     x xdot xdotdot y ydot ydotdot thetDv thetBv thet1v thet2v thet3v yv xv  ...
-    tau1 tau2 tau3 Fc Tc K C B m_t m_k g Ib t L1 L2 L3 L3cross alph V real
+    tau1 tau2 tau3 Fc Tc K C B m_t m_k g Ib t L1 L2 L3 L3cross alph V Vdot real
 assume(g>0 & K>0 & m_t>0 & m_k>0 & Ib>0 & C>0 & B>0 & L1>0 & L2>0 & L3>0 & L3cross>0);
 %%
 Cords=[x y thetD thetB thet1 thet2 thet3];
@@ -69,25 +69,20 @@ dWdvdisp=grad(W,virtualDisp);
 
 EQ(3:9,1)=ddLagdCordsdotdt-dLagdCords-dWdvdisp;
 
-EQ=simplify(EQ);
 
-M=simplify(jacobian(EQ,Vars));
+M=jacobian(EQ,Vars);
 
-F=simplify(EQ-M*Vars');
+F=EQ-M*Vars';
 
 %%
 
 EoMs=M\(-F);
 
-%EoMs_ZeroVel=limit(subs(EoMs,[xdot ydot],V*[sin(thetD) -cos(thetD)]),V,0);
+
 
 %%
-%EoMs2=solve(EQ,Vars,'ReturnConditions',true);
+% EoMs_ZeroVel=limit(subs(EoMs,[xdot ydot],V*[sin(thetD) -cos(thetD)]),V,0);
 
-
-
-
-
-
+%%
 
 
