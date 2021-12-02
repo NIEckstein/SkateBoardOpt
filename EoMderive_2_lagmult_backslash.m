@@ -57,7 +57,7 @@ Lag=KE-PE;
 % constraint EQs
 EQ(1,1)= thetDdot-C*thetB*((xdot^2+ydot^2)^(1/2));
 EQ(1,1)= statedot*grad(EQ(1,1),state);
-EQ(2,1)= xdot/ydot+tan(thetD);
+EQ(2,1)= xdot+tan(thetD)*ydot;
 EQ(2,1)= statedot*grad(EQ(2,1),state);
 
 % euler lagrange EQs
@@ -81,8 +81,8 @@ EoMs=M\(-F);
 
 
 %%
-% EoMs_ZeroVel=limit(subs(EoMs,[xdot ydot],V*[sin(thetD) -cos(thetD)]),V,0);
+ EoMs_ZeroVel=limit(subs(EoMs,[xdot ydot],V*[sin(thetD) -cos(thetD)]),V,0);
 
 %%
 
-
+save('EoMs_12_01_21_with_zeroVelEQs','EoMs','EoMs_ZeroVel');
