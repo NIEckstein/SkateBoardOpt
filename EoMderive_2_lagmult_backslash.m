@@ -4,7 +4,7 @@ syms thetD thetDdot thetDdotdot thetB thetBdot thetBdotdot thet1 thet1dot thet1d
     thet2 thet2dot thet2dotdot thet3 thet3dot thet3dotdot ...
     x xdot xdotdot y ydot ydotdot thetDv thetBv thet1v thet2v thet3v yv xv  ...
     tau1 tau2 tau3 Fc Tc K C B m_t m_k g Ib t L1 L2 L3 L3cross alph V Vdot real
-assume(g>0 & K>0 & m_t>0 & m_k>0 & Ib>0 & C>0 & B>0 & L1>0 & L2>0 & L3>0 & L3cross>0);
+assume(g>0 & K>0 & m_t>0 & m_k>0 & Ib>0 & C>0 & B>0 & L1>0 & L2>0 & L3>0 & L3cross>0 & V>=0);
 %%
 Cords=[x y thetD thetB thet1 thet2 thet3];
 Cordsdot=[xdot ydot thetDdot thetBdot thet1dot thet2dot thet3dot];
@@ -71,8 +71,9 @@ EQ(3:9,1)=ddLagdCordsdotdt-dLagdCords-dWdvdisp;
 
 
 M=jacobian(EQ,Vars);
-
 F=EQ-M*Vars';
+
+M(1,:)=simplify(subs(M(1,:),[xdot ydot],V*[sin(thetD) -cos(thetD)]));
 
 %%
 
@@ -81,8 +82,8 @@ EoMs=M\(-F);
 
 
 %%
- EoMs_ZeroVel=limit(subs(EoMs,[xdot ydot],V*[sin(thetD) -cos(thetD)]),V,0);
-
+% EoMs_ZeroVel=limit(subs(EoMs,[xdot ydot],V*[sin(thetD) -cos(thetD)]),V,0);
+EoMs=simplify(EoMs);
 %%
 
-save('EoMs_12_01_21_with_zeroVelEQs','EoMs','EoMs_ZeroVel');
+save('EoMs_no_singularities','EoMs');
