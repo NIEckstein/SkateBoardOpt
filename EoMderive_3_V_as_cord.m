@@ -83,3 +83,6 @@ EoMs=simplify(EoMs);
 %%
 
 save('EoMs_V_as_cord','EoMs');
+
+
+
