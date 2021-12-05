@@ -32,11 +32,11 @@ thetdot=thetBdot+thet1dot-thet2dot+thet3dot;
 
 V_knee=[statedot*grad(rx_knee,state);...
                statedot*grad(ry_knee,state);
-                        V - thetDdot*rx_knee];
+                            V - rx_knee];
 
 V_torso=[statedot*grad(rx_torso,state);...
                statedot*grad(ry_torso,state);
-                            V - thetDdot*rx_torso];
+                            V];
 
 KE_torso=(m_t*sum(V_torso.^2) + Iy*thetDdot^2 + Iz*thetdot^2)/2;
 KE_knee=m_k*sum(V_knee.^2)/2;
@@ -76,8 +76,8 @@ F=EQ-M*Vars';
 
 %%
 
-EoMs=simplify(M\(-F));
-
+EoMs=M\(-F);
+EoMs=simplify(EoMs);
 
 
 %%
