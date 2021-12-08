@@ -1,0 +1,23 @@
+function [cost] = skateboardObjective(decisionVars,Param)
+    taugrid = decisionVars(1:20);
+    tdur = decisionVars(21);
+    numShooting = Param.numShooting;
+    slackVars = decisionVars(22:end);
+    slackVars = reshape(slackVars,12,numShooting);
+    
+    State0 = [0.0 0.0 0.0 0.0 0.0 pi/2 pi/2 0.0 0.0 0.0 0.0 0.0 0.0];
+    tgridCon = Param.tgridCon;
+    Param.taugrid = taugrid;
+    options = odeset('abstol',1e-9,'reltol',1e-9);
+    numTGridCon = 1000;
+    dt = tdur/numShooting;
+    
+    stateList = [];
+    for i = 1:numShooting
+        State0 = [slackVars(:,i);0.0];
+        tgridCon = linspace((i-1)*dt,i*dt,numTGridCon);
+        [~,shootiStates] = ode45(@ODEskateboard_wCost, tgridCon, State0, options, Param);
+        stateList=[stateList; shootiStates(2:end,:)];
+    end
+
+end

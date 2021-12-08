@@ -28,8 +28,8 @@ L2=Param.L2;
 L3=Param.L3;
 L3cross=Param.L3cross;
 Ib=Param.Ib;
-workCostWeight=Param.workCostWeight;
-staticCostWeight=Param.staticCostWeight;
+% workCostWeight=Param.workCostWeight;
+% staticCostWeight=Param.staticCostWeight;
 tgrid=Param.tgrid;
 taugrid=Param.taugrid;
 
@@ -65,9 +65,12 @@ thet3dotdot= -(16*L2^2*L3*m_t*tau1*cos(thet2 - thet3) - 24*L1*L3^2*m_k*tau2 - 24
 
 
 % calculate time derivative of cost
-Power=sum(((tau.*[thet1dot thet2dot thet3dot]).^2 + epsilon).^(1/2));
-staticCostdot=sum(tau.^2);
-Costdot= workCostWeight*Power+staticCostWeight*staticCostdot;
+
+Costdot=sum(tau.^2);
+
+%Power=sum(((tau.*[thet1dot thet2dot thet3dot]).^2 + epsilon).^(1/2));
+%staticCostdot=sum(tau.^2);
+%Costdot= workCostWeight*Power+staticCostWeight*staticCostdot;
 
 % form the time derivative of the state vector
 dStatedt=[xdot; ydot; thetDdot; thetBdot; thet1dot; thet2dot; thet3dot;...
