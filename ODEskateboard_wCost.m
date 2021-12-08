@@ -8,7 +8,7 @@ thetB=State(4);
 thet1=State(5);
 thet2=State(6);
 thet3=State(7);
-V=state(8);
+V=State(8);
 thetBdot=State(9);
 thet1dot=State(10);
 thet2dot=State(11);
@@ -30,7 +30,7 @@ L3cross=Param.L3cross;
 Ib=Param.Ib;
 % workCostWeight=Param.workCostWeight;
 % staticCostWeight=Param.staticCostWeight;
-tgrid=Param.tgrid;
+tgrid=linspace(0,Param.tdur,Param.taugridNum);
 taugrid=Param.taugrid;
 
 %interpolate the torque grid

@@ -39,6 +39,7 @@ Param.thet2UB = 11*pi/12; Param.thet2LB = 0;
 %Param.thet2endUB = 11*pi/12; Param.thet2endLB = 0;
 Param.thet3UB = pi-atan(Param.L3cross/Param.L3); Param.thet3LB = -pi/4;
 %Param.thet3endUB = pi-atan(L3cross/L3); Param.thet3endLB = -pi/4;
+Param.tdurLB = 1;
 
 UB = []; LB = []; Aeq = []; Beq = []; Aineq = []; Bineq = [];
 
@@ -53,7 +54,7 @@ options = optimset('display','iter','MaxFunEvals',200000,'MaxIter',20000,'diffma
 
 % optimize 
 tic;
-[decisionVarsResult,optFVal] = fmincon(@skateboardObjective,decisionVars0,Aineq,Bineq,Aeq,Beq,LB,UB,@multipleShootingConstraints,options,Param);
+[decisionVarsResult,optFVal] = fmincon(@skateboardObjective0,decisionVars0,Aineq,Bineq,Aeq,Beq,LB,UB,@multipleShootingConstraints,options,Param);
 optTime0 = toc;
 
 
